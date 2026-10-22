@@ -1,0 +1,785 @@
+Activité 1:
+1)Le tableau contient 4 éléments
+2)L’indice du premier élément est 0
+3)L’indice du dernier élément est 3
+4)Il affiche Nour
+5)L’indice 4 n’existe pas donc PHP affiche aucune valeur valide
+Activité 2:
+1)count() permet de connaître le nombre d’éléments du tableau
+2)Parce que les indices commencent à 0 et le dernier indice est 3 donc on s’arrête avant 4
+3)Parce que le nombre d’étudiants peut changer et count() rend le programme
+Activité 3:
+foreach est plus pratique lorsqu’on veut parcourir tous les éléments d’un tableau sans utiliser les indices
+Activité 4:
+<?php
+$etudiants = ["Ahmed", "Sami", "Nour", "Amine", "Yassine"];
+$etudiants[] = "Ali";
+array_pop($etudiants);
+echo "Nombre final : " . count($etudiants) . "<br>";
+foreach ($etudiants as $etudiant) {
+    echo $etudiant . "<br>";
+}
+?>
+Activité 5:
+<?php
+
+$etudiants = ["Ahmed", "Sami", "Nour", "Amine"];
+$nomRecherche = "Nour";
+if (in_array($nomRecherche, $etudiants)) {
+echo "etudiant existe dans le tableau.";
+}
+else{
+    echo "etudiant n'existe pas dans le tableau.";
+}
+
+?>
+Activité 6:
+<?php
+
+$etudiant = [
+"nom" => "Khediri",
+"prenom" => "Ahmed",
+"age" => 20,
+"formation" => "Informatique",
+"moyenne" => 14.5,
+"téléphone" => "53911283",
+"ville" => "kairoun",
+"niveau" => "2éme"
+];
+echo "<p>Nom : {$etudiant['nom']}</p>";
+echo "<p>Prénom : {$etudiant['prenom']}</p>";
+echo "<p>Âge : {$etudiant['age']}</p>";
+echo "<p>Formation : {$etudiant['formation']}</p>";
+echo "<p>Moyenne : {$etudiant['moyenne']}</p>";
+echo "<p>téléphone : {$etudiant['téléphone']}</p>";
+echo "<p>ville : {$etudiant['ville']}</p>";
+echo "<p>niveau : {$etudiant['niveau']}</p>";
+
+?>
+Activité 7:
+<?php
+
+$etudiants = [
+[
+"nom" => "Khediri",
+"prenom" => "Ahmed",
+"age" => 20,
+"moyenne" => 14.5
+],
+[
+"nom" => "Ali",
+"prenom" => "Sami",
+"age" => 21,
+"moyenne" => 11.5
+],
+[
+"nom" => "Ben Salah",
+"prenom" => "Nour",
+"age" => 19,
+"moyenne" => 16
+]
+];
+foreach($etudiants as $etudiant){
+    foreach($etudiant as $etud){
+        echo "<p>$etud</p>";
+    }
+    echo "<hr>";
+}
+?>
+Activité 8:
+<?php
+
+$etudiants = [
+[
+"nom" => "Khediri",
+"prenom" => "Ahmed",
+"age" => 20,
+"moyenne" => 14.5
+],
+[
+"nom" => "Ali",
+"prenom" => "Sami",
+"age" => 21,
+"moyenne" => 11.5
+],
+[
+"nom" => "Ben Salah",
+"prenom" => "Nour",
+"age" => 19,
+"moyenne" => 16
+]
+];
+
+echo "<table border='1'>";
+echo "<tr>";
+echo "<th>Nom</th>";
+echo "<th>Prénom</th>";
+echo "<th>Âge</th>";
+echo "<th>Moyenne</th>";
+echo "</tr>";
+
+foreach ($etudiants as $etudiant) {
+    echo "<tr>";
+    echo "<td>{$etudiant['nom']}</td>";
+    echo "<td>{$etudiant['prenom']}</td>";
+    echo "<td>{$etudiant['age']}</td>";
+    echo "<td>{$etudiant['moyenne']}</td>";
+    echo "</tr>";
+}
+echo "</table>";
+?>
+Activité 9:
+<?php
+
+function afficherBonjour($nom)
+{
+    echo "Bonjour " . $nom;
+}
+afficherBonjour("Ahmed");
+echo "<br>";
+afficherBonjour("Sami");
+echo "<br>";
+afficherBonjour("Nour");
+?>
+1)Le paramètre permet de donner une valeur à la fonction
+2)Parce qu’on écrit le code une seule fois et on peut appeler la fonction plusieurs fois
+Activité 10:
+<?php
+
+function additionner($a, $b){
+    return $a + $b;
+}
+$resultat = additionner(10, 20);
+echo $resultat;
+?>
+1)echo affiche une valeur mais return renvoie une valeur à la fonction qui l'appelle
+Activité 11:
+<?php
+
+function calculerMoyenne($note1, $note2, $note3){
+    return ($note1 + $note2 + $note3) / 3;
+}
+echo calculerMoyenne(4, 11, 3);
+?>
+resultat:6
+Activité 12:
+<?php
+
+function determinerResultat($moyenne){
+    if ($moyenne >= 10) {
+        return "Admis";
+    }
+        return "Ajourné";
+}
+function appreciation($moyenne){
+    if ($moyenne < 10) {
+        return "Insuffisant";
+    }
+    elseif ($moyenne < 12) {
+        return "Passable";
+    } 
+    elseif ($moyenne < 14) {
+        return "Assez bien";
+    } 
+    elseif ($moyenne < 16) {
+        return "Bien";
+    }
+
+    return "Très bien";
+}
+echo determinerResultat(14);
+echo "<br>";
+echo appreciation(14);
+
+?>
+Resultat:
+admis
+bien
+Activité 13:
+<?php
+$etudiants = [
+[
+"nom" => "Khediri",
+"prenom" => "Ahmed",
+"age" => 20,
+"moyenne" => 14.5
+],
+[
+"nom" => "Ali",
+"prenom" => "Sami",
+"age" => 21,
+"moyenne" => 11.5
+],
+[
+"nom" => "Ben Salah",
+"prenom" => "Nour",
+"age" => 19,
+"moyenne" => 16
+]
+];
+function determinerResultat($moyenne){
+    if ($moyenne >= 10) {
+        return "Admis";
+    }
+        return "Ajourné";
+}
+function appreciation($moyenne){
+    if ($moyenne < 10) {
+        return "Insuffisant";
+    }
+    elseif ($moyenne < 12) {
+        return "Passable";
+    } 
+    elseif ($moyenne < 14) {
+        return "Assez bien";
+    } 
+    elseif ($moyenne < 16) {
+        return "Bien";
+    }
+
+    return "Très bien";
+}
+function afficherEtudiant($etudiant){
+    echo "<p>Nom : {$etudiant['nom']}</p>";
+    echo "<p>Prénom : {$etudiant['prenom']}</p>";
+    echo "<p>Âge : {$etudiant['age']}</p>";
+    echo "<p>Moyenne : {$etudiant['moyenne']}</p>";
+    echo "<p>Résultat : " .
+    determinerResultat($etudiant['moyenne']) . "</p>";
+    echo "<p>Appréciation : " .
+    appreciation($etudiant['moyenne']) . "</p>";
+}
+foreach ($etudiants as $etudiant) {
+    afficherEtudiant($etudiant);
+}
+
+?>
+Activité 14:
+<?php
+$etudiants = [
+[
+"nom" => "Khediri",
+"prenom" => "Ahmed",
+"age" => 20,
+"moyenne" => 14.5
+],
+[
+"nom" => "Ali",
+"prenom" => "Sami",
+"age" => 21,
+"moyenne" => 11.5
+],
+[
+"nom" => "Ben Salah",
+"prenom" => "Nour",
+"age" => 19,
+"moyenne" => 16
+]
+];
+function calculerMoyenneClasse($etudiants)
+{
+    $somme = 0;
+
+    foreach ($etudiants as $etudiant) {
+        $somme += $etudiant["moyenne"];
+    }
+
+    return $somme / count($etudiants);
+}
+
+echo "Moyenne de la classe : " .
+     calculerMoyenneClasse($etudiants);
+
+?>
+1)Elle possède 1 paramètre
+2)Il représente le tableau des étudiants
+3)Pour parcourir tous les étudiants
+4)Elle retourne la moyenne de la classe
+Activité 15:
+<?php
+$etudiants = [
+[
+"nom" => "Khediri",
+"prenom" => "Ahmed",
+"age" => 20,
+"moyenne" => 14.5
+],
+[
+"nom" => "Ali",
+"prenom" => "Sami",
+"age" => 21,
+"moyenne" => 11.5
+],
+[
+"nom" => "Ben Salah",
+"prenom" => "Nour",
+"age" => 19,
+"moyenne" => 16
+]
+];
+function rechercherEtudiant($etudiants, $nom)
+{
+foreach ($etudiants as $etudiant) {
+if ($etudiant["nom"] === $nom) {
+return $etudiant;
+}
+}
+
+return null;
+}
+function determinerResultat($moyenne){
+    if ($moyenne >= 10) {
+        return "Admis";
+    }
+        return "Ajourné";
+}
+function appreciation($moyenne){
+    if ($moyenne < 10) {
+        return "Insuffisant";
+    }
+    elseif ($moyenne < 12) {
+        return "Passable";
+    } 
+    elseif ($moyenne < 14) {
+        return "Assez bien";
+    } 
+    elseif ($moyenne < 16) {
+        return "Bien";
+    }
+
+    return "Très bien";
+}
+function afficherEtudiant($etudiant){
+    echo "<p>Nom : {$etudiant['nom']}</p>";
+    echo "<p>Prénom : {$etudiant['prenom']}</p>";
+    echo "<p>Âge : {$etudiant['age']}</p>";
+    echo "<p>Moyenne : {$etudiant['moyenne']}</p>";
+    echo "<p>Résultat : " .
+    determinerResultat($etudiant['moyenne']) . "</p>";
+    echo "<p>Appréciation : " .
+    appreciation($etudiant['moyenne']) . "</p>";
+}
+$etudiant = rechercherEtudiant($etudiants, "Khediri");
+if ($etudiant !== null) {
+afficherEtudiant($etudiant);
+} else {
+echo "Étudiant introuvable.";
+}
+?>
+Activité 16:
+<?php
+$etudiants = [
+[
+"nom" => "Khediri",
+"prenom" => "Ahmed",
+"age" => 20,
+"moyenne" => 14.5
+],
+[
+"nom" => "Ali",
+"prenom" => "Sami",
+"age" => 21,
+"moyenne" => 3
+],
+[
+"nom" => "Ben Salah",
+"prenom" => "Nour",
+"age" => 19,
+"moyenne" => 16
+]
+];
+function obtenirAdmis($etudiants)
+{
+$admis = [];
+
+foreach ($etudiants as $etudiant) {
+if ($etudiant["moyenne"] >= 10) {
+$admis[] = $etudiant;
+}
+}
+return $admis;
+}
+$admis=obtenirAdmis($etudiants);
+foreach($admis as $etudiant){
+    echo "<p>Nom : {$etudiant['nom']}</p>";
+    echo "<p> Prénom : {$etudiant['prenom']}</p>";
+    echo "<p> Age : {$etudiant['age']}</p>";
+    echo "<p> Moyenne : {$etudiant['moyenne']}</p>";
+}
+?>
+Activité 17:
+<?php
+$etudiants = [
+[
+"nom" => "Khediri",
+"prenom" => "Ahmed",
+"age" => 20,
+"moyenne" => 14.5
+],
+[
+"nom" => "Ali",
+"prenom" => "Sami",
+"age" => 21,
+"moyenne" => 3
+],
+[
+"nom" => "Ben Salah",
+"prenom" => "Nour",
+"age" => 19,
+"moyenne" => 16
+]
+];
+function filtrerParMoyenne($etudiants, $moyenneMinimale)
+{
+$resultat = [];
+
+foreach ($etudiants as $etudiant) {
+if ($etudiant["moyenne"] >= $moyenneMinimale) {
+$resultat[] = $etudiant;
+}
+}
+return $resultat;
+}
+function determinerResultat($moyenne){
+    if ($moyenne >= 10) {
+        return "Admis";
+    }
+        return "Ajourné";
+}
+function appreciation($moyenne){
+    if ($moyenne < 10) {
+        return "Insuffisant";
+    }
+    elseif ($moyenne < 12) {
+        return "Passable";
+    } 
+    elseif ($moyenne < 14) {
+        return "Assez bien";
+    } 
+    elseif ($moyenne < 16) {
+        return "Bien";
+    }
+
+    return "Très bien";
+}
+function afficherEtudiant($etudiant){
+    echo "<p>Nom : {$etudiant['nom']}</p>";
+    echo "<p>Prénom : {$etudiant['prenom']}</p>";
+    echo "<p>Âge : {$etudiant['age']}</p>";
+    echo "<p>Moyenne : {$etudiant['moyenne']}</p>";
+    echo "<p>Résultat : " .
+    determinerResultat($etudiant['moyenne']) . "</p>";
+    echo "<p>Appréciation : " .
+    appreciation($etudiant['moyenne']) . "</p>";
+}
+$resultat=filtrerParMoyenne($etudiants, 14);
+foreach($resultat as $etudiant){
+    afficherEtudiant($etudiant);
+}
+?>
+Activité 18:
+1)Pour avoir un code mieux organisé et réutilisable
+2)Il permet d’inclure le fichier fonctions.php une seule fois
+3)Pour revenir au dossier parent
+Activité 19:
+<?php
+$etudiants = [
+[
+"nom" => "Khediri",
+"prenom" => "Ahmed",
+"age" => 20,
+"moyenne" => 14.5
+],
+[
+"nom" => "Ali",
+"prenom" => "Sami",
+"age" => 21,
+"moyenne" => 3
+],
+[
+"nom" => "Ben Salah",
+"prenom" => "Nour",
+"age" => 19,
+"moyenne" => 16
+]
+];
+function determinerResultat($moyenne){
+    if ($moyenne >= 10) {
+        return "Admis";
+    }
+        return "Ajourné";
+}
+function appreciation($moyenne){
+    if ($moyenne < 10) {
+        return "Insuffisant";
+    }
+    elseif ($moyenne < 12) {
+        return "Passable";
+    } 
+    elseif ($moyenne < 14) {
+        return "Assez bien";
+    } 
+    elseif ($moyenne < 16) {
+        return "Bien";
+    }
+
+    return "Très bien";
+}
+function calculerMoyenneClasse($etudiants)
+{
+    $somme = 0;
+
+    foreach ($etudiants as $etudiant) {
+        $somme += $etudiant["moyenne"];
+    }
+
+    return $somme / count($etudiants);
+}
+function nombreAdmis($etudiants)
+{
+    $nombre = 0;
+    foreach ($etudiants as $etudiant) {
+        if ($etudiant["moyenne"] >= 10) {
+            $nombre++;
+        }
+    }
+    return $nombre;
+}
+echo "<h2>Liste des étudiants</h2>";
+foreach($etudiants as $etudiant){
+    afficherEtudiant($etudiant);
+}
+function afficherEtudiant($etudiant){
+    echo "<p>Nom : {$etudiant['nom']}</p>";
+    echo "<p>Prénom : {$etudiant['prenom']}</p>";
+    echo "<p>Âge : {$etudiant['age']}</p>";
+    echo "<p>Moyenne : {$etudiant['moyenne']}</p>";
+    echo "<p>Résultat : " .
+    determinerResultat($etudiant['moyenne']) . "</p>";
+    echo "<p>Appréciation : " .
+    appreciation($etudiant['moyenne']) . "</p>";
+}
+echo "<h3>Statistiques</h3>";
+
+echo "Nombre d'étudiants : " . count($etudiants) . "<br>";
+
+echo "Moyenne de la classe : "
+    . calculerMoyenneClasse($etudiants) . "<br>";
+
+echo "Nombre d'admis : "
+    . nombreAdmis($etudiants) . "<br>";
+function trouverMeilleurEtudiant($etudiants)
+{
+    $meilleur = $etudiants[0];
+    foreach ($etudiants as $etudiant) {
+        if ($etudiant["moyenne"] > $meilleur["moyenne"]) {
+            $meilleur = $etudiant;
+        }
+    }
+    return $meilleur;
+}
+$meilleur = trouverMeilleurEtudiant($etudiants);
+echo "Meilleur étudiant : " . $meilleur["nom"] . " ";
+echo $meilleur["prenom"] . "<br>";
+echo "Moyenne : " . $meilleur["moyenne"];
+
+?>
+Exercice 1:
+<?php
+
+$notes = [12, 15, 9, 14, 16];
+function calculerSomme($notes)
+{
+    $somme = 0;
+    foreach ($notes as $note) {
+        $somme += $note;
+    }
+    return $somme;
+}
+function calculerMoyenne($notes)
+{
+    return calculerSomme($notes) / count($notes);
+}
+function calculerMaximum($notes)
+{
+    return max($notes);
+}
+function calculerMinimum($notes)
+{
+    return min($notes);
+}
+function compterNotesAdmis($notes)
+{
+    $nombre = 0;
+    foreach ($notes as $note) {
+        if ($note >= 10) {
+            $nombre++;
+        }
+    }
+    return $nombre;
+}
+echo "Somme : " . calculerSomme($notes) . "<br>";
+echo "Moyenne : " . calculerMoyenne($notes) . "<br>";
+echo "Maximum : " . calculerMaximum($notes) . "<br>";
+echo "Minimum : " . calculerMinimum($notes) . "<br>";
+echo "Notes >= 10 : " . compterNotesAdmis($notes);
+
+?>
+Exercice 2:
+<?php
+
+$etudiants = [
+    ["nom" => "Khediri", "prenom" => "Ahmed", "age" => 20, "formation" => "Informatique", "moyenne" => 14.5],
+    ["nom" => "Ali", "prenom" => "Sami", "age" => 21, "formation" => "Informatique", "moyenne" => 11.5],
+    ["nom" => "Ben Salah", "prenom" => "Nour", "age" => 19, "formation" => "Informatique", "moyenne" => 16],
+    ["nom" => "Trabelsi", "prenom" => "Amine", "age" => 20, "formation" => "Informatique", "moyenne" => 9],
+    ["nom" => "Mansour", "prenom" => "Yassine", "age" => 22, "formation" => "Informatique", "moyenne" => 13],
+    ["nom" => "Jlassi", "prenom" => "Mariem", "age" => 19, "formation" => "Informatique", "moyenne" => 15],
+    ["nom" => "Mejri", "prenom" => "Hana", "age" => 20, "formation" => "Informatique", "moyenne" => 10],
+    ["nom" => "Bouzid", "prenom" => "Ali", "age" => 21, "formation" => "Informatique", "moyenne" => 12],
+    ["nom" => "Saidi", "prenom" => "Walid", "age" => 20, "formation" => "Informatique", "moyenne" => 8],
+    ["nom" => "Gharbi", "prenom" => "Sara", "age" => 19, "formation" => "Informatique", "moyenne" => 17]
+];
+function afficherEtudiant($etudiant)
+{
+    echo "<p>Nom : {$etudiant['nom']}</p>";
+    echo "<p>Prénom : {$etudiant['prenom']}</p>";
+    echo "<p>Âge : {$etudiant['age']}</p>";
+    echo "<p>formation : {$etudiant['formation']}</p>";
+    echo "<p>Informatique : {$etudiant['Informatique']}</p>";
+    echo "<p>Moyenne : {$etudiant['moyenne']}</p>";
+    echo "<hr>";
+}
+function calculerMoyenneClasse($etudiants)
+{
+    $somme = 0;
+    foreach ($etudiants as $etudiant) {
+        $somme += $etudiant["moyenne"];
+    }
+    return $somme / count($etudiants);
+}
+function compterAdmis($etudiants)
+{
+    $nombre = 0;
+    foreach ($etudiants as $etudiant) {
+        if ($etudiant["moyenne"] >= 10) {
+            $nombre++;
+        }
+    }
+    return $nombre;
+}
+function rechercherEtudiant($etudiants, $nom)
+{
+    foreach ($etudiants as $etudiant) {
+        if ($etudiant["nom"] === $nom) {
+            return $etudiant;
+        }
+    }
+    return null;
+}
+function filtrerMoyenne($etudiants, $minimum)
+{
+    $resultat = [];
+    foreach ($etudiants as $etudiant) {
+        if ($etudiant["moyenne"] >= $minimum) {
+            $resultat[] = $etudiant;
+        }
+    }
+    return $resultat;
+}
+afficherEtudiant($etudiants);
+echo "<br>";
+echo "Moyenne de la classe : " . calculerMoyenneClasse($etudiants) . "<br>";
+echo "Nombre d'admis : " . compterAdmis($etudiants) . "<br>";
+$recherche = rechercherEtudiant($etudiants, "Khediri");
+if ($recherche != null) {
+    echo "Étudiant trouvé : " . $recherche["prenom"] . "<br>";
+}
+echo "<br>Étudiants avec moyenne >= 14 :<br>";
+$resultat = filtrerMoyenne($etudiants, 14);
+afficherEtudiant($resultat);
+
+?>
+Exercice 3:
+<?php
+$etudiants = [
+[
+"nom" => "Khediri",
+"prenom" => "Ahmed",
+"age" => 20,
+"moyenne" => 14.5
+],
+[
+"nom" => "Ali",
+"prenom" => "Sami",
+"age" => 21,
+"moyenne" => 3
+],
+[
+"nom" => "Ben Salah",
+"prenom" => "Nour",
+"age" => 19,
+"moyenne" => 16
+]
+];
+function trouverMeilleurEtudiant($etudiants)
+{
+    $meilleur = $etudiants[0];
+    foreach ($etudiants as $etudiant) {
+        if ($etudiant["moyenne"] > $meilleur["moyenne"]) {
+            $meilleur = $etudiant;
+        }
+    }
+    return $meilleur;
+}
+function plusFaibleMoyenne($etudiants)
+{
+    $plusFaible = $etudiants[0]["moyenne"];
+    foreach ($etudiants as $etudiant) {
+        if ($etudiant["moyenne"] < $plusFaible) {
+            $plusFaible = $etudiant["moyenne"];
+        }
+    }
+    return $plusFaible;
+}
+
+function nombreMoyenne14($etudiants)
+{
+    $nombre = 0;
+    foreach ($etudiants as $etudiant) {
+        if ($etudiant["moyenne"] >= 14) {
+            $nombre++;
+        }
+    }
+    return $nombre;
+}
+function pourcentageAdmis($etudiants)
+{
+    $admis = 0;
+    foreach ($etudiants as $etudiant) {
+        if ($etudiant["moyenne"] >= 10) {
+            $admis++;
+        }
+    }
+    return ($admis / count($etudiants)) * 100;
+}
+echo "Meilleure moyenne : "
+    . trouverMeilleurEtudiant($etudiants) . "<br>";
+
+echo "Plus faible moyenne : "
+    . plusFaibleMoyenne($etudiants) . "<br>";
+
+echo "Nombre de moyennes >= 14 : "
+    . nombreMoyenne14($etudiants) . "<br>";
+
+echo "Pourcentage d'admis : "
+    . pourcentageAdmis($etudiants) . "%";
+
+?>
+Question.txt:
+1)Un tableau permet de regrouper plusieurs étudiants dans une seule variable et de les parcourir facilement
+2)$etudiants[0] désigne le premier élément d'un tableau.
+$etudiant["nom"] désigne la valeur associée à la clé nom
+3)Parce qu'une fonction permet d'écrire le code une seule fois et de le réutiliser plusieurs fois
+4)echo affiche une valeur et return renvoie une valeur
+5)Pour avoir un code plus organisé, plus propre et plus facile à réutiliser
