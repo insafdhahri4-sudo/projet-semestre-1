@@ -1,0 +1,429 @@
+Activité 1:
+1)L'attribut name donne un nom a chaque balise
+2)car en php en récupére les valeur par son attribut name 
+3)Le formulaire est envoye et les donnees des champs sont transmises
+4)Avec le formulaire initial sans method, le navigateur utilise le comportement par défaut du formulaire, et les valeurs peuvent apparaître dans l'URL
+Activité 2:
+1)Les données du formulaire s'affiches dans l'URL
+2)Elle apparaissent dans URL
+3)Parce que les paramétres de la requette GET se transmis dans l'URL
+4)le code php peux ne pas executer ce qui provoque des erreurs
+Activité 3:
+
+<?php
+$nom = $_GET['nom'];
+$prenom = $_GET['prenom'];
+$age = $_GET['age'];
+$formation = $_GET['formation'];
+if ( isset($_GET['nom'])&& isset($_GET['prenom'])&& isset($_GET['age']) &&isset($_GET['formation'])) {
+    $nom = $_GET['nom'];
+    echo "Nom : " . $nom."<br>";
+    $nom = $_GET['prenom'];
+    echo "Prénom : " . $prenom."<br>";
+    $age = $_GET['age'];
+    echo "Age : " . $age."<br>";
+    $nom = $_GET['formation'];
+    echo "Formation : " . $formation."<br>";
+}
+else{
+    echo "Veuillez remplir le formulaire";
+}
+?>
+Activité 4:
+
+<?php
+$nom = $_POST['nom'];
+$prenom = $_POST['prenom'];
+$age = $_POST['age'];
+$formation = $_POST['formation'];
+if ( isset($_POST['nom'])&& isset($_POST['prenom'])&& isset($_POST['age']) &&isset($_POST['formation'])) {
+    $nom = $_POST['nom'];
+    echo "Nom : " . $nom."<br>";
+    $nom = $_POST['prenom'];
+    echo "Prénom : " . $prenom."<br>";
+    $age = $_POST['age'];
+    echo "Age : " . $age."<br>";
+    $nom = $_POST['formation'];
+    echo "Formation : " . $formation."<br>";
+}
+else{
+    echo "Veuillez remplir le formulaire";
+}
+?>
+Activité 5:
+<?php
+$erreurs = [];
+if (empty($_POST['nom'])) {
+    $erreurs[] = "Le nom est obligatoire.";
+}
+if (empty($_POST['prenom'])) {
+    $erreurs[] = "Le prenom est obligatoire.";
+}
+if (empty($_POST['age'])) {
+    $erreurs[] = "Le age est obligatoire.";
+}
+if (empty($_POST['formation'])) {
+    $erreurs[] = "Le formation est obligatoire.";
+}
+if (empty($_POST['moy'])) {
+    $erreurs[] = "Le moyenne est obligatoire.";
+}
+if (count($erreurs) > 0) {
+    foreach ($erreurs as $erreur) {
+        echo "<p>$erreur</p>";
+    }
+} else {
+    echo "<p>Toutes les données sont renseignées</p>";
+}
+?>
+<form method="POST">
+    <label>Nom :</label>
+    <input type="text" name="nom"><br>
+    <label>Prénom :</label>
+    <input type="text" name="prenom"><br>
+    <label>Âge :</label>
+    <input type="number" name="age"><br>
+    <label>Formation :</label>
+    <input type="text" name="formation"><br>
+    <label>Moyenne :</label>
+    <input type="text" name="moy"><br>
+    <button type="submit">Envoyer</button>
+</form>
+Activité 6:
+<?php
+$erreurs = [];
+if (empty($_POST['nom'])) {
+    $erreurs[] = "Le nom est obligatoire.";
+}
+if (empty($_POST['prenom'])) {
+    $erreurs[] = "Le prenom est obligatoire.";
+}
+if (($_POST['age'] < 16 || $_POST['age']> 40) &&  empty($_POST['age'])){
+    $erreurs[] = "L'âge doit être compris entre 16 et 40 ans.";
+}
+if (empty($_POST['formation'])) {
+    $erreurs[] = "Le formation est obligatoire.";
+}
+if (($_POST['moy'] < 0 || $_POST['moy'] > 20)&& empty($_POST['moy'])) {
+    $erreurs[] = "Le moyenne est obligatoire.";
+}
+if (count($erreurs) > 0) {
+    foreach ($erreurs as $erreur) {
+        echo "<p>$erreur</p>";
+    }
+} else {
+    echo "<p>Toutes les données sont renseignées.</p>";
+}
+?>
+<form method="POST">
+    <label>Nom :</label>
+    <input type="text" name="nom"><br>
+    <label>Prénom :</label>
+    <input type="text" name="prenom"><br>
+    <label>Âge :</label>
+    <input type="number" name="age"><br>
+    <label>Formation :</label>
+    <input type="text" name="formation"><br>
+    <label>Moyenne :</label>
+    <input type="text" name="moy"><br>
+    <button type="submit">Envoyer</button>
+</form>
+Activité 7:
+<?php
+$erreurs = [];
+if (empty($_POST['nom'])) {
+    $erreurs[] = "Le nom est obligatoire.";
+}
+if (empty($_POST['prenom'])) {
+    $erreurs[] = "Le prenom est obligatoire.";
+}
+if ( empty($_POST['age']) &&($_POST['age'] < 16 || $_POST['age']> 40) ){
+    $erreurs[] = "L'âge doit être compris entre 16 et 40 ans.";
+}
+if (empty($_POST['formation'])) {
+    $erreurs[] = "Le formation est obligatoire.";
+}
+if (empty($_POST['moy'])&&($_POST['moy'] < 0 || $_POST['moy'] > 20) ) {
+    $erreurs[] = "Le moyenne est obligatoire.";
+}
+if (count($erreurs) > 0) {
+    foreach ($erreurs as $erreur) {
+        echo "<p>$erreur</p>";
+    }
+} else {
+    echo "<p>Toutes les données sont renseignées.</p>";
+}
+?>
+<form method="POST">
+    <label>Nom :</label>
+    <input type="text" name="nom" value="<?= htmlspecialchars($nom ?? '') ?>"><br>
+    <label>Prénom :</label>
+    <input type="text" name="prenom" value="<?= htmlspecialchars($prenom ?? '') ?>"><br>
+    <label>Âge :</label>
+    <input type="number" name="age" value="<?= htmlspecialchars($age ?? '') ?>"><br>
+    <label>Formation :</label>
+    <input type="text" name="formation" value="<?= htmlspecialchars($formation ?? '') ?>"><br>
+    <label>Moyenne :</label>
+    <input type="text" name="moy" value="<?= htmlspecialchars($moy ?? '') ?>"><br>
+    <button type="submit">Envoyer</button>
+</form>
+Activité 8:
+<?php
+$erreurs = [];
+if (empty($_POST['nom'])) {
+    $erreurs[] = "Le nom est obligatoire.";
+}
+if (empty($_POST['prenom'])) {
+    $erreurs[] = "Le prenom est obligatoire.";
+}
+if ( empty($_POST['age']) &&($_POST['age'] < 16 || $_POST['age']> 40) ){
+    $erreurs[] = "L'âge doit être compris entre 16 et 40 ans.";
+}
+if (empty($_POST['formation'])) {
+    $erreurs[] = "Le formation est obligatoire.";
+}
+if (empty($_POST['moy'])&&($_POST['moy'] < 0 || $_POST['moy'] > 20) ) {
+    $erreurs[] = "Le moyenne est obligatoire.";
+}
+if (count($erreurs) > 0) {
+    foreach ($erreurs as $erreur) {
+        echo "<p>$erreur</p>";
+    }
+} else {
+    echo "<p>Toutes les données sont renseignées.</p>";
+}
+echo "<p>Nom :".$_POST['nom']."</p>";
+echo "<p>Prénom :".$_POST['prenom']."</p>";
+echo "<p>Âge :".$_POST['age']."</p>";
+echo "<p>Formation :".$_POST['formation']."</p>";
+echo "<p>Moyenne :".$_POST['moy']." / 20</p>";
+function resultat($moyenne)
+{
+if ($moyenne >= 10) {
+return "Admis";
+}
+return "Ajourné";
+}
+echo "<p>Résultat :".resultat($_POST['moy'])."</p>";
+?>
+<form method="POST">
+    <label>Nom :</label>
+    <input type="text" name="nom" value="<?= htmlspecialchars($nom ?? '') ?>"><br>
+    <label>Prénom :</label>
+    <input type="text" name="prenom" value="<?= htmlspecialchars($prenom ?? '') ?>"><br>
+    <label>Âge :</label>
+    <input type="number" name="age" value="<?= htmlspecialchars($age ?? '') ?>"><br>
+    <label>Formation :</label>
+    <input type="text" name="formation" value="<?= htmlspecialchars($formation ?? '') ?>"><br>
+    <label>Moyenne :</label>
+    <input type="text" name="moy" value="<?= htmlspecialchars($moy ?? '') ?>"><br>
+    <button type="submit">Envoyer</button>
+</form>
+Activité 9:
+la création des fichier
+Activité 10:
+<?php
+$nom = $_POST['nom'];
+$prenom = $_POST['prenom'];
+$age = $_POST['age'];
+$formation = $_POST['formation'];
+$moy = $_POST['moy'];
+$erreurs = [];
+if (empty($nom)) {
+    $erreurs[] = "la saisie d'un nom est obligatoire";
+}
+if (empty($prenom)) {
+    $erreurs[] = "la saisie d'un prenom est obligatoire";
+}
+if (empty($age)) {
+    $erreurs[] = "la saisie d'un age est obligatoire";
+}
+if (empty($formation)) {
+    $erreurs[] = "la saisie d'une formation est obligatoire";
+}
+if (empty($moy)) {
+    $erreurs[] = "la saisie d'une moyenne est obligatoire";
+}
+if (count($erreurs) > 0) {
+    foreach ($erreurs as $erreur) {
+        echo "<p>" . $erreur . "</p>";
+    }
+} else {
+    echo "<p>Toutes les données sont renseignées.</p>";
+    $etudiant = [
+        "nom" => $nom,
+        "prenom" => $prenom,
+        "age" => $age,
+        "formation" => $formation,
+        "moyenne" => $moy
+    ];
+}
+?>
+<form method="POST">
+    <label>Nom :</label>
+    <input type="text" name="nom" ><br>
+    <label>Prénom :</label>
+    <input type="text" name="prenom"><br>
+    <label>Âge :</label>
+    <input type="number" name="age" ><br>
+    <label>Formation :</label>
+    <input type="text" name="formation" ><br>
+    <label>Moyenne :</label>
+    <input type="text" name="moy" ><br>
+    <button type="submit">Envoyer</button>
+</form>
+Activité 11:
+<?php
+$nom = $_POST['nom'];
+$prenom = $_POST['prenom'];
+$age = $_POST['age'];
+$formation = $_POST['formation'];
+$moy = $_POST['moy'];
+$erreurs = [];
+if (empty($nom)) {
+    $erreurs[] = "la saisie d'un nom est obligatoire";
+}
+if (empty($prenom)) {
+    $erreurs[] = "la saisie d'un prenom est obligatoire";
+}
+if (empty($age)) {
+    $erreurs[] = "la saisie d'un age est obligatoire";
+}
+if (empty($formation)) {
+    $erreurs[] = "la saisie d'une formation est obligatoire";
+}
+if (empty($moy)) {
+    $erreurs[] = "la saisie d'une moyenne est obligatoire";
+}
+if (count($erreurs) > 0) {
+    foreach ($erreurs as $erreur) {
+        echo "<p>" . $erreur . "</p>";
+    }
+} else {
+    echo "<p>Toutes les données sont renseignées.</p>";
+    $etudiant = [
+        "nom" => $nom,
+        "prenom" => $prenom,
+        "age" => $age,
+        "formation" => $formation,
+        "moyenne" => $moy
+    ];
+}
+?>
+<form method="POST">
+    <label>Nom :</label>
+    <input type="text" name="nom" ><br>
+    <label>Prénom :</label>
+    <input type="text" name="prenom"><br>
+    <label>Âge :</label>
+    <input type="number" name="age" ><br>
+    <label>Formation :</label>
+    <input type="text" name="formation" ><br>
+    <label>Moyenne :</label>
+    <input type="text" name="moy" ><br>
+    <button type="submit">Envoyer</button>
+</form>
+Activité 12:
+<?php
+$etudiants = [
+    [
+        "nom" => "Ahmed",
+        "prenom" => "Ali",
+        "age" => 21,
+        "formation" => "Informatique",
+        "moyenne" => 14.5
+    ],
+    [
+        "nom" => "Dupont",
+        "prenom" => "Sara",
+        "age" => 20,
+        "formation" => "Informatique",
+        "moyenne" => 12
+    ],
+    [
+        "nom" => "Ben Ali",
+        "prenom" => "Mohamed",
+        "age" => 22,
+        "formation" => "Mathématiques",
+        "moyenne" => 9
+    ]
+];
+if (isset($_GET['nom'])) {
+    $recherchenom = $_GET['nom'];
+
+    foreach ($etudiants as $etudiant) {
+        if ($etudiant['nom']==$recherchenom) {
+            echo "<p>Nom " . $etudiant['nom'] . " est trouvé</p>";
+        }
+    }
+}
+?>
+<form method="GET">
+    <input type="text" name="nom">
+    <button type="submit">Rechercher</button>
+</form>
+Activité 13:
+<?php
+$etudiants = [];
+$nom = $_POST["nom"];
+$prenom = $_POST["prenom"];
+$age = $_POST["age"];
+$formation = $_POST["formation"];
+$moyenne = $_POST["moyenne"];
+$etudiants[] = [
+    "nom" => $nom,
+    "prenom" => $prenom,
+    "age" => $age,
+    "formation" => $formation,
+    "moyenne" => $moyenne
+];
+
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des étudiants</title>
+</head>
+<body>
+    <h2>Ajouter un étudiant</h2>
+    <form method="POST" action="">
+        Nom : <input type="text" name="nom"><br>
+        Prénom : <input type="text" name="prenom"><br>
+        Age : <input type="number" name="age"><br>
+        Formation : <input type="text" name="formation"><br>
+        Moyenne : <input type="number" name="moyenne"><br>
+        <button type="submit">Ajouter</button>
+    </form>
+    <h2>Liste des étudiants</h2>
+    <table border="1">
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Age</th>
+            <th>Formation</th>
+            <th>Moyenne</th>
+        </tr>
+        <?php foreach ($etudiants as $etudiant) { ?>
+            <tr>
+                <td><?= $etudiant["nom"] ?></td>
+                <td><?= $etudiant["prenom"] ?></td>
+                <td><?= $etudiant["age"] ?></td>
+                <td><?= $etudiant["formation"] ?></td>
+                <td><?= $etudiant["moyenne"] ?></td>
+            </tr>
+        <?php } ?>
+    </table>
+</body>
+</html>
+Activité 14:
+1)GET transmet les données dans l'URL tandis que POST transmet les données dans le corps de la requête
+2)Pour une recherche
+3)Pour envoyer des données par exemple lors de l'inscription ou de l'ajout d'un étudiant
+4)Pour vérifier qu'une donnée existe ou qu'un champ a été renseigné avant de l'utiliser
+5)Pour vérifier qu'elles respectent les règles attendues par l'application
+6)Parce que les données reçues doivent être vérifiées par le serveur avant d'être utilisées
+7)Elle permet d'afficher les données saisies en échappant certains caractères HTML
+8)La validation vérifie que les données respectent les règles attendues et l'affichage sécurisé consiste notamment à échapper les caractères spéciaux avant d'afficher des données dans du HTML
+9)Pour regrouper les fonctions communes et pouvoir les réutiliser dans différentes pages
