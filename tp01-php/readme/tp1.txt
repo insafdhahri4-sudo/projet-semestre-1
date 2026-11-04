@@ -1,0 +1,377 @@
+Activite1:
+1)lsb_release -a:
+Ubuntu 24.04 LTS
+2)sudo apt update:
+apt update met à jour les informations concernant les paquets disponibles. Il n'installe pas automatiquement les nouvelles versions des logiciels
+3)sudo apt install php, php --version:
+-Version PHP : regarder le numéro affiché par php --version
+-CLI signifie Command Line Interface
+Dans ce TP, on utilise le serveur intégré de PHP, sans Apache
+Activite 2:
+créer le dossier:
+mkdir -p ~/tpphp
+cd ~/tpphp
+pwd
+ls -la
+créer le projet:
+mkdir -p ~/tpphp/tp01-php/exercices
+cd ~/tpphp/tp01-php
+Activité3:
+verifier vs code:
+code --version
+ovrir le projet:
+code .
+Activité4:
+index.php contient:
+<?php
+echo "Bonjour PHP !";
+?>
+1)executer php index.php:
+Bonjour PHP !
+2)php index.php exécute PHP directement dans le terminal.
+Un navigateur doit passer par le serveur PHP pour exécuter le code PHP
+Activité5:
+1)Rôle de localhost :il représente la machine locale
+2)8000=C'est le numéro du port utilisé par le serveur PHP
+3)Le serveur intégré de PHP
+4)Parce que le code PHP doit être exécuté par le serveur avant d'être envoyé au navigateur
+5)Après avoir enregistré et rechargé la page, PHP réexécute le fichier et le nouveau résultat apparaît
+Activité 6:
+index.php:
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon premier programme PHP</title>
+</head>
+<body>
+
+<h1>Bienvenue dans mon application PHP</h1>
+
+<?php
+echo "<p>Bonjour depuis PHP !</p>";
+?>
+
+</body>
+</html>
+Question: Non PHP est exécuté sur le serveur et le navigateur reçoit seulement le HTML généré
+Activité 7:
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil</title>
+</head>
+<body>
+
+<h1>Bienvenue dans mon application</h1>
+
+<p>Nom : <?php echo "Ahmed"; ?></p>
+<p>Formation : <?php echo "Informatique"; ?></p>
+<p>Année : <?php echo "2"; ?></p>
+
+</body>
+</html>
+Activité 8:
+<?php
+
+$nom = "Ahmed";
+$age = 20;
+
+echo "<p>Nom : $nom</p>";
+echo "<p>Âge : $age ans</p>";
+
+?>
+1)Non
+2)$age contient maintenant la chaîne de caractères "vingt"
+3)Oui
+Activité 9:
+<?php
+
+$nom = "Ahmed";
+$age = 20;
+$taille = 1.75;
+$etudiant = true;
+
+var_dump($nom);
+var_dump($age);
+var_dump($taille);
+var_dump($etudiant);
+
+?>
+$nom= string
+$age= integer
+$taille= float
+$etudiant= boolean
+Activité10:
+<?php
+
+$a = 15;
+$b = 4;
+
+$somme = $a + $b;
+$difference = $a - $b;
+$produit = $a * $b;
+$quotient = $a / $b;
+
+echo "<p>Somme : $somme</p>";
+echo "<p>Différence : $difference</p>";
+echo "<p>Produit : $produit</p>";
+echo "<p>Quotient : $quotient</p>";
+
+echo "<p>Reste : " . ($a % $b) . "</p>";
+echo "<p>Carré de a : " . ($a * $a) . "</p>";
+echo "<p>Moyenne : " . (($a + $b) / 2) . "</p>";
+
+?>
+Resultat:
+Somme : 19
+Différence : 11
+Produit : 60
+Quotient : 3.75
+Reste : 3
+Carré : 225
+Moyenne : 9.5
+Activité 11:
+<?php
+
+$prenom = "Ahmed";
+$nom = "Ali";
+
+$nomComplet = $prenom . " " . $nom;
+
+echo "Bonjour " . $nomComplet .
+     ", bienvenue dans le cours de développement web côté serveur.";
+
+?>
+Resultat:
+Bonjour Ahmed Ali, bienvenue dans le cours de développement web côté serveur
+Activité 12:
+<?php
+
+$note = 14;
+
+if ($note < 10) {
+    echo "Ajourné";
+} elseif ($note < 12) {
+    echo "Passable";
+} elseif ($note < 14) {
+    echo "Assez bien";
+} elseif ($note < 16) {
+    echo "Bien";
+} else {
+    echo "Très bien";
+}
+
+?>
+Resultat:
+note < 10       → Ajourné
+10 ≤ note < 12  → Passable
+12 ≤ note < 14  → Assez bien
+14 ≤ note < 16  → Bien
+note ≥ 16       → Très bien
+Activité 13:
+1)<?php
+
+for ($i = 1; $i <= 20; $i++) {
+    echo "<p>$i</p>";
+}
+
+?>
+2)<?php
+
+for ($i = 2; $i <= 20; $i += 2) {
+    echo "<p>$i</p>";
+}
+
+?>
+3)<?php
+
+for ($i = 1; $i <= 10; $i++) {
+    echo "<p>5 × $i = " . (5 * $i) . "</p>";
+}
+
+?>
+4)<?php
+
+for ($i = 10; $i >= 1; $i--) {
+    echo "<p>$i</p>";
+}
+
+?>
+Activité 14:
+<?php
+
+$prenom = "Ahmed";
+$nom = "Ali";
+$age = 20;
+$formation = "Informatique";
+$annee = "2ème année";
+$moyenne = 14.5;
+
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil étudiant</title>
+</head>
+
+<body>
+
+<h1>Profil étudiant</h1>
+
+<p>Nom complet :
+    <?php echo $prenom . " " . $nom; ?>
+</p>
+
+<p>Âge :
+    <?php echo $age; ?> ans
+</p>
+
+<p>Formation :
+    <?php echo $formation; ?>
+</p>
+
+<p>Année :
+    <?php echo $annee; ?>
+</p>
+
+<p>Moyenne :
+    <?php echo $moyenne; ?>
+</p>
+
+<?php
+
+if ($moyenne >= 10) {
+    echo "<p>Résultat : Année validée</p>";
+} else {
+    echo "<p>Résultat : Année non validée</p>";
+}
+
+?>
+
+</body>
+</html>
+Activité 15:
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire</title>
+</head>
+
+<body>
+
+<form method="get">
+
+    <label for="nom">Votre nom :</label>
+
+    <input type="text" id="nom" name="nom">
+
+    <button type="submit">Envoyer</button>
+
+</form>
+
+<?php
+
+if (isset($_GET['nom'])) {
+
+    $nom = $_GET['nom'];
+
+    echo "<p>Bonjour $nom !</p>";
+}
+
+?>
+
+</body>
+</html>
+1)Les paramètres transmis par la méthode GET
+2)Pour récupérer la valeur du champ nommé nom
+3)Le name définit le nom du paramètre récupéré dans $_GET
+4)La condition isset() permet de vérifier que le paramètre existe avant de l'utiliser
+Activité 16:
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion étudiant</title>
+</head>
+
+<body>
+
+<h1>Gestion simplifiée des étudiants</h1>
+
+<form method="get">
+
+    <p>
+        <label>Nom :</label>
+        <input type="text" name="nom">
+    </p>
+
+    <p>
+        <label>Prénom :</label>
+        <input type="text" name="prenom">
+    </p>
+
+    <p>
+        <label>Âge :</label>
+        <input type="number" name="age">
+    </p>
+
+    <p>
+        <label>Formation :</label>
+        <input type="text" name="formation">
+    </p>
+
+    <p>
+        <label>Moyenne :</label>
+        <input type="number" step="0.01" name="moyenne">
+    </p>
+
+    <button type="submit">Valider</button>
+
+</form>
+
+<?php
+
+if (
+    isset($_GET['nom']) &&
+    isset($_GET['prenom']) &&
+    isset($_GET['age']) &&
+    isset($_GET['formation']) &&
+    isset($_GET['moyenne'])
+) {
+
+    $nom = $_GET['nom'];
+    $prenom = $_GET['prenom'];
+    $age = $_GET['age'];
+    $formation = $_GET['formation'];
+    $moyenne = $_GET['moyenne'];
+
+    echo "<h2>FICHE ÉTUDIANT</h2>";
+
+    echo "<p>Nom : $nom</p>";
+    echo "<p>Prénom : $prenom</p>";
+    echo "<p>Âge : $age</p>";
+    echo "<p>Formation : $formation</p>";
+    echo "<p>Moyenne : $moyenne</p>";
+
+    if ($moyenne >= 10) {
+        echo "<p>Résultat : Année validée</p>";
+    } else {
+        echo "<p>Résultat : Année non validée</p>";
+    }
+}
+
+?>
+
+</body>
+</html>
+Activité 17:
+1)Le serveur PHP
+2)Le navigateur
+3)non
+4)Parce que le code PHP est exécuté sur le serveur avant que le résultat HTML soit envoyé au navigateur
+5)PHP est exécuté côté serveur, tandis que JavaScript peut être exécuté côté navigateur

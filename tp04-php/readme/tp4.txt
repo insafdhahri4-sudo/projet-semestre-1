@@ -1,0 +1,123 @@
+Activité1:
+3)il ne peut pas le savoir tout seul HTTP est un protocole sans etat chaque requette est traitee comme si s'était la premiere et page2 ne sait rien de page1
+4)non chaque execution d'un script php repart de zéro donc pour conserver les données il faut une session ou un cookie
+Activité 2:
+<?php
+session_start();
+$_SESSION['nom'] = "Ahmed";
+echo "Session créée.";
+?>
+Resultat:
+session créée
+Activité 3:
+1)dans session.php avec $_SESSION['nom']="Ahmed";
+2)dans profil.php avec echo $_SESSION['nom'];
+3)il démarre ou reprend la session:il lit l'identifiant envoyé par le navigateur et charge $_SESSION donc sans lui $_SESSION est vide il doi etre appelé avant toute sortie HTML
+4)non c'est une superglobale de type tableau associatif dont le contenu est conservé entre les requétes
+5)le cookie de session disparait à la fermeture du navigateur donc le serveur ne retrouve plus la session et la variable est perdue
+Activité 4:
+profil.php:
+<?php
+session_start();
+echo "Nom : ".$_SESSION['nom']."<br>";
+echo "prenom : ".$_SESSION['prenom']."<br>";
+echo "formation : ".$_SESSION['formation']."<br>";
+echo "age : ".$_SESSION['age']."<br>";
+echo "email : ".$_SESSION['email']."<br>";
+?>
+session.php:
+<?php
+session_start();
+$_SESSION['nom'] = "Ahmed";
+$_SESSION['prenom'] = "Ali";
+$_SESSION['formation'] = "Informatique";
+$_SESSION['age'] = "30";
+$_SESSION['email'] = "ahmed11@gmail.com";
+echo "Session créée.";
+?> 
+Resultat:
+Nom : Ahmed
+prenom : Ali
+formation : Informatique
+age : 30
+email : ahmed11@gmail.com
+Activité 5:
+1)pour éviter une erreur et pour savoir si l'utilisateur est identifié
+2)la variable n'existe pas isset renvoie false
+3)car elle permet de protéger les pages
+Activité 6:
+la session est detruite et les données sont detruies
+Activité 7:
+1)coté navigateur sur le poste du client
+2)une durée en secondes soit 1 heure 
+3)la cookie est stocké chez le client mais la session est stockée sur le serveur 
+4)le navigateur le supprime et ne l'envoie plus
+Activité 8:
+<?php
+setcookie("nom", "Ahmed", time() + 3600);
+setcookie("theme", "sombre", time() + 3600);
+setcookie("langue", "fr", time() + 3600);
+
+foreach (['nom', 'theme', 'langue'] as $c) {
+    echo $c . " : " . ($_COOKIE[$c] ?? "absent") . "<br>";
+}
+Activité 9;
+<?php
+setcookie("langue", "", time() - 3600);
+echo "Cookie supprimé.";
+Activité 10
+1)
+Les données restent sur le serveur et le client ne peut pas les modifier.
+
+2)
+Un cookie est visible et modifiable par l’utilisateur, et il peut être intercepté ou volé.
+
+3)
+Non. Il peut être lu, modifié, intercepté (HTTP sans chiffrement) ou volé (faille XSS). Les attributs HttpOnly, Secure et SameSite réduisent les risques.
+Activité 12
+
+1)
+Le message « Identifiants incorrects. » s’affiche.
+
+2)
+Le même message. On ne dit pas lequel des deux est faux, pour ne pas aider un attaquant.
+
+3)
+Les identifiants sont écrits en dur, le mot de passe est en clair, il n’y a qu’un seul utilisateur, et rien ne peut être modifié sans changer le code.
+
+Activité 16
+
+1)
+Non, c’est une chaîne du type $2y$10$....
+
+2)
+password_hash() utilise un algorithme de hachage (bcrypt) avec un sel aléatoire. Le résultat change même à chaque exécution.
+
+3)
+Non, le hachage est à sens unique. On peut seulement tester des candidats avec password_verify().
+4)
+Si la base fuit, tous les mots de passe sont exposés, y compris ceux réutilisés sur d’autres sites.
+
+Activité 17
+123456 → « Mot de passe correct. »
+abcdef → « Mot de passe incorrect. »
+Activité 20:
+On évite de répéter le même code sur chaque page, on le modifie à un seul endroit, et on réduit le risque d’oublier de protéger une page.
+
+Activité 21
+Il transforme <, >, & et les guillemets en entités HTML. Sans lui, un nom contenant <script>...</script> serait exécuté par le navigateur (faille XSS).
+
+Activité 23 : synthèse
+1 Un mécanisme qui conserve côté serveur des données d’un visiteur entre plusieurs requêtes, grâce à un identifiant.
+2 Pour démarrer ou reprendre la session et charger $_SESSION.
+3 Contenir les données de la session courante.
+4 Une petite donnée stockée par le navigateur et renvoyée au serveur à chaque requête.
+5 La session est sur le serveur, le cookie est chez le client (donc moins sûr).
+6 Contenir les cookies envoyés par le navigateur.
+7 Pour supprimer la session côté serveur (déconnexion).
+8 Pour qu’une fuite ne révèle pas les vrais mots de passe.
+9 Créer une empreinte sécurisée du mot de passe.
+10 Comparer un mot de passe saisi à son empreinte.
+11 Sinon, n’importe qui peut ouvrir l’URL directement.
+12 Pour centraliser et réutiliser le contrôle d’accès.
+13 Pour empêcher l’injection de HTML ou JavaScript (XSS)
