@@ -1,0 +1,103 @@
+Activité 1:
+1)Une ligne représente un étudiant complet
+2)Une colonne représente un type d’information qui existe pour tous les étudiants
+3)L’identifiant permet de reconnaître chaque étudiant sans se tromper deux étudiants peuvent avoir le même nom, mais jamais le même id
+4)Une base de données permet de chercher trier et modifier une seule ligne vite et sans erreur dans un fichier il faut tout relire et tout réécrire
+Activité 2:
+1)id est une clé primaire parce qu’elle identifie chaque ligne de façon unique
+2)nom est NOT NULL parce qu’un étudiant sans nom n’a pas de sens donc la valeur est obligatoire
+3)AUTO_INCREMENT veut dire que MySQL donne tout seul le numéro suivant (1, 2, 3...)
+4)La moyenne est un nombre pas du texte  en texte on ne peut pas calculer (moyenne de la classe) ni trier correctement (« 9 » passerait après « 16 »)
+5)Insérer NULL dans une colonne obligatoire donne une erreur  Column 'nom' cannot be null La ligne n’est pas ajoutée
+Activité 3:
+1)INSERT INTO ajoute une nouvelle ligne dans une table
+2)SELECT lit et affiche des données
+3)WHERE garde seulement les lignes qui répondent à une condition
+4)ORDER BY trie les résultats
+5)SELECT * affiche toutes les colonnes et choisir les colonnes affiche seulement celles qu’on veut c’est plus clair et plus rapide
+Activité 4:
+1)UPDATE modifie des lignes qui existent déjà
+2)DELETE supprime des lignes
+3)Sans WHERE toutes les lignes seraient modifiées ou supprimées Il faut donc vérifier la condition avant d’exécuter
+4)Un id est unique alors qu’un nom peut exister plusieurs fois Avec le nom on risque de modifier le mauvais étudiant
+Activité 5:
+1)new PDO(...) crée la connexion entre PHP et la base de données
+2)require_once inclut un fichier une seule fois même si on l’appelle plusieurs fois Le script s’arrête si le fichier est absent
+3)__DIR__ est le dossier du fichier actuel le chemin marche donc toujours peu importe d’où on lance le script
+4)Les détails techniques aident un pirate à attaquer le site On affiche un message simple à la place
+5)Les identifiants donnent accès à toutes les données S’ils sont connus n’importe qui peut lire modifier ou détruire la base
+Activité 6:
+1)$pdo->query() envoie une requête SQL à la base et retourne le résultat
+2)fetchAll() retourne toutes les lignes du résultat dans un tableau PHP chaque ligne est un tableau associatif
+3)foreach parcourt le tableau ligne par ligne pour créer une ligne HTML pour chaque étudiant
+4)htmlspecialchars() transforme les caractères spéciaux en texte inoffensif cela empêche l’injection de code HTML ou JavaScript
+5)La base contient les données brutes le HTML est seulement un affichage créé par PHP à chaque visite
+Activité 7:
+<?php
+require_once __DIR__ . '/connexion.php';
+$message = '';
+$erreurs = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nom       = trim($_POST['nom'] ?? '');
+    $prenom    = trim($_POST['prenom'] ?? '');
+    $age       = $_POST['age'] ?? '';
+    $formation = trim($_POST['formation'] ?? '');
+    $moyenne   = $_POST['moyenne'] ?? '';
+
+    if ($nom === '' || $prenom === '' || $formation === '') {
+        $erreurs[] = "Nom, prénom et formation sont obligatoires.";
+    }
+    if (filter_var($age, FILTER_VALIDATE_INT) === false || (int)$age < 16) {
+        $erreurs[] = "L'âge doit être un entier supérieur ou égal à 16.";
+    }
+    if (!is_numeric($moyenne) || $moyenne < 0 || $moyenne > 20) {
+        $erreurs[] = "La moyenne doit être comprise entre 0 et 20.";
+    }
+
+    if (!$erreurs) {
+        $sql = "INSERT INTO etudiants (nom, prenom, age, formation, moyenne)
+                VALUES (:nom, :prenom, :age, :formation, :moyenne)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'nom' => $nom, 'prenom' => $prenom, 'age' => (int)$age,
+            'formation' => $formation, 'moyenne' => (float)$moyenne
+        ]);
+        $message = "Étudiant ajouté avec succès.";
+    }
+}
+?>
+1)La validation HTML peut être contournée  on peut désactiver le navigateur ou envoyer une requête à la main
+2)Côté serveur on est sûr de contrôler les vraies données reçues quoi qu’il arrive côté navigateur
+3)id n’est pas dans le formulaire car MySQL le génère tout seul
+4)Pour vérifier ouvre liste.php ou fais SELECT * FROM etudiants; dans MySQL
+Activité 8:
+1)prepare() envoie à MySQL le modèle de la requête avec des emplacements vides
+2)execute() remplit ces emplacements avec les vraies valeurs et lance la requête
+3):nom, :prenom... sont des paramètres nommés : des places réservées qui seront remplacées par les valeurs
+4)Concaténer les données permet à un pirate d’écrire du SQL dans le formulaire et de lire ou détruire la base
+5)Non elle ne remplace pas la validation elle protège contre l’injection SQL mais n’empêche pas un âge négatif ou une moyenne de 500 les deux sont nécessaires
+Activité 9:
+1)GET met la recherche dans l’URL  on peut la copier l’ajouter aux favoris ou la partager et elle ne modifie rien dans la base
+2)LIKE cherche un texte qui ressemble à un modèle pas seulement un texte identique
+3)Les % veulent dire « n’importe quels caractères » %Mar% trouve tout nom qui contient « Mar »
+4)Même une recherche reçoit du texte tapé par l’utilisateur, qui peut contenir du code malveillant
+Activité 10:
+1)L’identifiant vient de l’URL donc l’utilisateur peut y écrire n’importe quoi il faut vérifier que c’est un entier valide
+2)L’étudiant peut ne pas exister  sans vérification la page afficherait des erreurs ou un formulaire vide
+3)Si on change l’id, on risque de casser l’identification de l’étudiant  c'est lui qui désigne la bonne ligne
+4)Les valeurs du formulaire viennent de l’utilisateur la requête préparée évite l’injection SQL même en modification
+Activité 11:
+1)La suppression est définitive  sans sauvegarde on ne peut pas récupérer la donnée
+2)Plusieurs étudiants peuvent avoir le même nom et on en supprimerait plusieurs d’un coup
+3)Un lien GET peut être déclenché par erreur un formulaire POST est plus sûr
+4)Vérifier la suppression  recharge la liste utilise  fais SELECT * FROM etudiants WHERE id = ....
+Activité 12:
+Activité 13:
+1)On garde le TP 5 car il fait comprendre la persistance simplement étape par étape avant d’aller vers la base de données
+2)JSON reste pratique pour de petits projets des réglages des prototypes ou peu de données sans serveur de base
+3)Une base relationnelle apporte la recherche rapide des données bien structurées une clé unique la gestion de plusieurs utilisateurs et plus de sécurité
+4)PDO est le pont entre PHP et la base  il envoie les requêtes SQL et récupère les résultats
+5)SQL sert à parler à la base PHP est le langage du site  il gère la logique les pages et l’affichage
+6)Les requêtes préparées empêchent l’injection SQL qui est l’une des attaques les plus courantes
+7)La validation vérifie que la donnée est correcte la protection contre l’injection empêche que la donnée soit interprétée comme du code SQL ce sont deux protections différentes
