@@ -1,0 +1,99 @@
+Activité 1:
+1)Directement dans le code PHP 
+2)Impossible sans modifier le code 
+3)Il faut modifier le code source et le redéployer
+4)Quiconque lit le code la base ou une sauvegarde voit directement le mot de passe et en cas de fuite tous les comptes sont compromis
+5)L’identité de l’utilisateur connecté 
+Activité 2:
+1)Pour qu’aucun nom ne soit utilisé par deux comptes chaque connexion doit identifier un seul utilisateur
+2)Pour rappeler qu’on stocke une empreinte jamais le mot de passe lui-même
+3)Le hash est long  et la taille peut augmenter avec les futurs algorithmes
+4)C’est un état booléen (0/1)  plus léger plus rapide à comparer et sans risque de fautes de saisie
+5)MySQL refuse l’insertion et génère une erreur 
+Activité 3:
+1)Non c’est une empreinte transformée de façon à ne pas être lisible
+2)Non car password_hash() ajoute un sel aléatoire à chaque appel
+3)Non le hachage est à sens unique
+4)Comme le hash change à chaque fois on ne peut pas comparer avec ===. password_verify() lit le sel dans le hash et recalcule pour comparer
+Activité 4:
+1)Il peut révéler des informations sensibles  utiles à un attaquant
+2)PDO lance une exception en cas d’erreur SQL ce qui permet de la capturer avec try/catch au lieu de l’ignorer
+3)Les résultats sont des tableaux associatifs plus lisibles que des index numériques et sans doublons
+Activité 5:
+1)GET place le mot de passe dans l’URL et POST l’envoie dans le corps de la requête
+2)Pour empêcher l’injection SQL les données saisies sont traitées comme des valeurs jamais comme du code SQL
+3)Pour ne pas aider l’attaquant à savoir si un nom d’utilisateur existe
+4)Compte inexistant mauvais mot de passe et compte désactivé donnent la même réponse donc on ne révèle rien sur l’état d’un compte
+5)Une session connectée ne doit exister que si l’identité est prouvée sinon n’importe qui serait considéré comme authentifié
+Activité 6:
+1)Pour éviter d’appeler session_start() deux fois quand plusieurs fichiers incluent auth.php
+2)La redirection envoie l’utilisateur vers la page de connexion ce qui est plus pratique et évite d’afficher du contenu protégé
+3)header() n’arrête pas le script  sans exit le reste de la page s’exécute quand même 
+4)La première exige d’être connecté la seconde exige d’être connecté ET admin
+5)Code écrit une seule fois réutilisable partout et modification de la logique de sécurité à un seul endroit
+Activité 7:
+1)La page devient accessible à tout le monde, connecté ou non 
+2)Un utilisateur peut taper l’URL directement. Le formulaire de connexion ne protège que lui-même
+3)Pour empêcher les attaques XSS les caractères comme < et > sont convertis en texte inoffensif
+4)Non. Le lien caché n’empêche pas d’accéder à l’URL en la tapant. C’est la vérification côté serveur qui protège
+Activité 8:
+1)Pour que le navigateur n’envoie plus l’ancien identifiant de session, et ne laisse pas de trace inutile
+2)Pour confirmer visuellement la déconnexion et empêcher l’utilisateur de rester sur une page protégée
+3)estConnecte() renvoie false donc redirection vers connexion.php
+4)Un message n’enlève pas les données de session  l’utilisateur resterait réellement connecté côté serveur
+Activité 9:
+1)Car estAdmin() commence par estConnecte() && ... : un non-connecté ne peut pas être admin
+2)N’importe quel utilisateur qui connaît l’URL peut accéder à la page admin
+3)L’accès dépend du rôle de l’utilisateur et non de son identité individuelle
+Activité 10:
+1)Pour afficher un message clair à l’utilisateur au lieu d’une erreur SQL brute
+2)La contrainte UNIQUE bloquerait l’insertion mais PDO lancerait une exception non gérée 
+3)Deux inscriptions simultanées peuvent passer la vérification PHP en même temps seule la base garantit l’unicité réelle
+4)Elle sert uniquement à vérifier la saisie et la stocker serait inutile et dangereux 
+5)Sinon n’importe qui pourrait modifier le formulaire et s’inscrire en admin
+Activité 11:
+Activité 12:
+1)En cas de fuite de la base tous les comptes sont immédiatement exploitables 
+2)Le hachage est à sens unique le chiffrement est réversible avec une clé
+3)MD5/SHA1 sont trop rapides et sans sel intégré donc faciles à casser. password_hash est lent salé automatiquement et évolutif
+4)Pour ne pas révéler quels noms d’utilisateur existent
+5)Car chaque page est accessible directement par son URL
+6)Authentification = qui es-tu ? Autorisation = qu’as-tu le droit de faire ?
+7)Pour éviter l’injection de code HTML/JavaScript
+8)Le JS s’exécute chez l’utilisateur qui peut le modifier ou le désactiver et La vraie sécurité est côté serveur
+Activité 13:
+1)Car la liste des comptes est une donnée sensible seuls les administrateurs doivent la voir pas tous les utilisateurs connectés
+2)Pour forcer un entier l’id placé dans l’URL ne peut contenir aucun code malveillant
+3)username est saisi par un utilisateur created_at est du texte on l’échappe par prudence actif est un 0/1 : on affiche seulement Actif  ou  Inactif  jamais sa valeur brute
+4)Pour un affichage lisible l’administrateur retrouve un compte par ordre alphabétique alors que l’id n’a aucun sens pour lui
+Activité 14:
+1)Seul un admin peut créer des comptes et surtout choisir leur rôle
+2)Le rôle vient du formulaire donc modifiable par l’utilisateur et On n’accepte que les valeurs autorisées le true impose une comparaison stricte 
+3)Un nouveau compte doit pouvoir se connecter tout de suite et on évite aussi qu’une valeur envoyée dans le formulaire fixe l’état
+4)Le mot de passe ne doit pas apparaître dans l’URL l’historique ou les logs et de plus POST sert à modifier des données
+Activité 15:
+1)Il vérifie que l’id est un vrai entier et renvoie false/null sinon $_GET['id'] brut peut contenir n’importe quoi 
+2)Pour éviter qu’un admin se bloque lui-même par erreur et perde l’accès à l’administration
+3)Sinon l’application pourrait se retrouver sans aucun administrateur donc sans personne pour gérer les comptes
+4)Pour travailler avec les données réelles et à jour et non avec ce que le formulaire envoie
+Activité 16:
+1)Un lien GET peut être déclenché par erreur et une modification d’état doit passer par un formulaire POST
+2)Pour ne pas s’enfermer dehors un admin désactivé ne pourrait plus se connecter
+3)Même raison qu’avant il doit toujours rester au moins un administrateur actif
+4)Avec ce code, elles restent valides actif n’est vérifié qu’à la connexion et pour être strict il faudrait revérifier actif en base à chaque page 
+5)Pour que l’admin sache dans quel état est le compte avant d’agir et que le bouton proposé soit cohérent
+Activité 17:
+1)La suppression est irréversible  un formulaire avec bouton explicite évite une suppression accidentelle par simple clic sur un lien
+2)Pour qu’un admin ne supprime pas son propre compte pendant qu’il est connecté 
+3)Pour que l’application reste toujours administrable
+4)Désactiver bloque l’accès mais garde le compte et son historique et on peut le réactiveret supprimer efface tout définitivement et en pratique on privilégie la désactivation
+5)Pour ne plus afficher le formulaire de confirmation d’un compte qui n’existe plus
+Activité 18:
+1)Gérer les comptes donne un pouvoir total
+2)Pour qu’un non-autorisé n’atteigne jamais la base on vérifie le droit d’abord puis on agit
+3)Pour éviter qu’un admin perde son propre accès par erreur
+4)Sans admin actif plus personne ne peut gérer l’application
+5)Elle est réversible conserve l’historique et les liens avec les autres données et limite les erreurs
+6)(int) transforme tout en nombre sans signaler l’erreur filter_input détecte l’entrée invalide et permet de la refuser
+7)Code plus simple plus facile à comprendre et à sécuriser chaque page a une seule responsabilité
+8)plutôt que === 'admin' ? === 'admin' ne teste qu’un seul rôle in_array vérifie une liste de rôles autorisés facile à étendre et le true garde la comparaison stricte
